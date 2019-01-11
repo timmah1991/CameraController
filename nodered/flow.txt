@@ -1,0 +1,247 @@
+[
+    {
+        "id": "be959a0e.ca2328",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "6b03d2d4.eaecfc",
+        "type": "Slack Bot In",
+        "z": "be959a0e.ca2328",
+        "name": "superbotte",
+        "apiToken": "INSERT_SLACK_TOKEN",
+        "channel": "tempcheck",
+        "x": 125.5,
+        "y": 180,
+        "wires": [
+            [
+                "1773508d.a4172f"
+            ]
+        ]
+    },
+    {
+        "id": "ca20eb3d.3d6918",
+        "type": "Slack Bot Out",
+        "z": "be959a0e.ca2328",
+        "name": "superbotte",
+        "apiToken": "INSERT_SLACK_TOKEN",
+        "channel": "tempcheck",
+        "x": 1415.5,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "1773508d.a4172f",
+        "type": "switch",
+        "z": "be959a0e.ca2328",
+        "name": "check msg contents",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "picture",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "photo",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "photograph",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "snap",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 5,
+        "x": 353.5,
+        "y": 181,
+        "wires": [
+            [
+                "eae662b8.6d705"
+            ],
+            [
+                "eae662b8.6d705"
+            ],
+            [
+                "eae662b8.6d705"
+            ],
+            [
+                "eae662b8.6d705"
+            ],
+            [
+                "a972043.5de26f8"
+            ]
+        ]
+    },
+    {
+        "id": "a972043.5de26f8",
+        "type": "function",
+        "z": "be959a0e.ca2328",
+        "name": "Inform user of capabilities",
+        "func": "msg.payload = \"Sorry, I can only take pictures!\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 935.5,
+        "y": 312,
+        "wires": [
+            [
+                "ca20eb3d.3d6918"
+            ]
+        ]
+    },
+    {
+        "id": "a2ff72c4.abfb9",
+        "type": "particle-function",
+        "z": "be959a0e.ca2328",
+        "name": "Cam1 Snap",
+        "auth": "d8aef067.93c6",
+        "function": "shutter1",
+        "argument": "1000",
+        "scope": "user",
+        "device": "mesh_master",
+        "product": "",
+        "x": 936.5,
+        "y": 145,
+        "wires": [
+            [
+                "88d7e1c7.fec9e"
+            ]
+        ]
+    },
+    {
+        "id": "78e8f6ed.18cb88",
+        "type": "particle-function",
+        "z": "be959a0e.ca2328",
+        "name": "Cam2 Snap",
+        "auth": "d8aef067.93c6",
+        "function": "shutter2",
+        "argument": "1000",
+        "scope": "user",
+        "device": "mesh_master",
+        "product": "",
+        "x": 936,
+        "y": 182,
+        "wires": [
+            [
+                "bfb8711e.31d57"
+            ]
+        ]
+    },
+    {
+        "id": "eae662b8.6d705",
+        "type": "switch",
+        "z": "be959a0e.ca2328",
+        "name": "decide which camera to use",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "cont",
+                "v": "c1",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "c2",
+                "vt": "str"
+            },
+            {
+                "t": "cont",
+                "v": "both",
+                "vt": "str"
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 4,
+        "x": 646,
+        "y": 174,
+        "wires": [
+            [
+                "a2ff72c4.abfb9"
+            ],
+            [
+                "78e8f6ed.18cb88"
+            ],
+            [
+                "a2ff72c4.abfb9",
+                "78e8f6ed.18cb88"
+            ],
+            [
+                "a0ca407d.edad7"
+            ]
+        ]
+    },
+    {
+        "id": "a0ca407d.edad7",
+        "type": "function",
+        "z": "be959a0e.ca2328",
+        "name": "Make camera decision",
+        "func": "msg.payload = \"Sorry, I don't understand which camera you would like me to use! Please specify c1, c2 or both\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 938,
+        "y": 251,
+        "wires": [
+            [
+                "ca20eb3d.3d6918"
+            ]
+        ]
+    },
+    {
+        "id": "88d7e1c7.fec9e",
+        "type": "function",
+        "z": "be959a0e.ca2328",
+        "name": "Notify picture taken",
+        "func": "msg.payload = \"Picture taken on C1\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1128,
+        "y": 145,
+        "wires": [
+            [
+                "ca20eb3d.3d6918"
+            ]
+        ]
+    },
+    {
+        "id": "bfb8711e.31d57",
+        "type": "function",
+        "z": "be959a0e.ca2328",
+        "name": "Notify picture taken",
+        "func": "msg.payload = \"Picture taken on C2\";\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1128,
+        "y": 182,
+        "wires": [
+            [
+                "ca20eb3d.3d6918"
+            ]
+        ]
+    },
+    {
+        "id": "d8aef067.93c6",
+        "type": "particle-config",
+        "z": "",
+        "clientId": "rules-engine-7692",
+        "clientSecret": "774c89c3d3679d22c0c31ee08402375af045de99"
+    }
+]
