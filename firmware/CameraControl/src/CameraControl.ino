@@ -27,10 +27,18 @@ void loop() {
 
 int shutterCamera1(String command)
 {
+  int shutterDelay1 = command.toInt();
+  digitalWrite(c1Shutter, HIGH);
+  delay(shutterDelay1);
+  digitalWrite(c1Shutter, LOW);
   return 1;
 }
 
 int shutterCamera2(String command)
 {
+  int shutterDelay2 = command.toInt();
+  digitalWrite(c2Shutter, HIGH);
+  delay(shutterDelay2);
+  digitalWrite(c2Shutter, LOW);
   return 1;
 }
