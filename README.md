@@ -8,7 +8,7 @@ There are five components to this project:
 
 *Sample Particle Xenon Firmware (Particle IDE)
 
-*Sample Android application (Thunkable)
+*Sample Android application (Thunkable) NOT DONE YET
 
 *Example NodeRED Workflow and integration (Particle Dev Console)
 
